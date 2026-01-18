@@ -1,23 +1,67 @@
-<!DOCTYPE html>
-<html lang="de">
-<head>
-    <meta charset="UTF-8">
-    <title>HTMShell - Terminal</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <!-- Terminal Container -->
-    <div id="terminal">
-        <!-- Ausgabebereich -->
-        <div id="output"></div>
-        
-        <!-- Eingabezeile -->
-        <div id="input-line">
-            <span id="prompt">$</span>
-            <input type="text" id="cmd-input" autofocus autocomplete="off">
-        </div>
-    </div>
+/* Terminal Container */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: black; /* Schwarzer Hintergrund */
+    color: yellow;           /* Gelber Text */
+    font-family: monospace;  /* Monospace Font */
+    height: 100vh;
+    overflow: hidden;        /* Kein Scrollen der ganzen Seite */
+}
 
-    <script src="script.js"></script>
-</body>
-</html>
+/* Terminal Fenster */
+#terminal {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+/* Ausgabebereich */
+#output {
+    flex: 1;                /* Nimmt gesamten verfügbaren Platz */
+    overflow-y: auto;       /* Scrollbar nur hier */
+    white-space: pre-wrap;  /* Zeilenumbruch bei langen Texten */
+}
+
+/* Eingabezeile immer unten */
+#input-line {
+    display: flex;
+    align-items: center;
+    height: 30px;
+    border-top: 1px solid yellow; /* optional Linie */
+}
+
+/* Prompt $ */
+#prompt {
+    margin-right: 5px;
+}
+
+/* Eingabefeld */
+#cmd-input {
+    background: black;
+    border: none;
+    outline: none;
+    color: yellow;
+    font-family: monospace;
+    font-size: 16px;
+    flex: 1; /* Nimmt gesamte Breite */
+}
+
+/* Scrollbar für Terminal */
+#output::-webkit-scrollbar {
+    width: 10px;
+}
+
+#output::-webkit-scrollbar-track {
+    background: black;
+}
+
+#output::-webkit-scrollbar-thumb {
+    background: yellow;
+}
+
+#output::-webkit-scrollbar-thumb:hover {
+    background: orange;
+}
