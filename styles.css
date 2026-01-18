@@ -1,0 +1,84 @@
+/* Vollbild-Terminal Overlay */
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    background: black;
+    color: yellow;
+    font-family: monospace;
+}
+
+/* Terminal Overlay */
+#terminal-overlay {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+/* Ladebereich oben (70%) */
+#loader {
+    height: 70%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: monospace;
+    font-size: 18px;
+}
+
+/* Terminal unten (30%) */
+#terminal {
+    height: 30%;
+    display: flex;
+    flex-direction: column;
+    border-top: 2px solid yellow;
+}
+
+/* Ausgabe */
+#output {
+    flex: 1;
+    overflow-y: auto;
+    padding: 5px;
+    white-space: pre-wrap;
+}
+
+/* Eingabezeile */
+#input-line {
+    display: flex;
+    align-items: center;
+    height: 30px;
+    border-top: 1px solid yellow;
+    padding-left: 5px;
+}
+
+#prompt {
+    margin-right: 5px;
+}
+
+#cmd-input {
+    background: black;
+    border: none;
+    outline: none;
+    color: yellow;
+    font-family: monospace;
+    font-size: 16px;
+    flex: 1;
+}
+
+/* Scrollbar Output */
+#output::-webkit-scrollbar {
+    width: 10px;
+}
+
+#output::-webkit-scrollbar-track {
+    background: black;
+}
+
+#output::-webkit-scrollbar-thumb {
+    background: yellow;
+}
+
+#output::-webkit-scrollbar-thumb:hover {
+    background: orange;
+}
