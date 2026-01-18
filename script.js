@@ -1,60 +1,71 @@
 const loader = document.getElementById('loader');
 const output = document.getElementById('output');
-const cmdInput = document.getElementById('cmd-input');
+const cmdText = document.getElementById('cmd-text');
+const cursor = document.getElementById('cursor');
 
 let terminalHistory = [];
+let currentCommand = '';
 
-// ASCII-Ladebalken Animation (6 Sekunden)
-function showLoader(duration = 6000) {
+// ASCII-Ladebalken
+function showLoader(duration = 6000){
     const totalSteps = 50;
     let step = 0;
     const interval = duration / totalSteps;
 
-    const loaderInterval = setInterval(() => {
+    const loaderInterval = setInterval(()=>{
         let filled = '#'.repeat(step);
         let empty = '-'.repeat(totalSteps - step);
         loader.textContent = `[${filled}${empty}] ${Math.round((step/totalSteps)*100)}%`;
         step++;
-        if(step > totalSteps) {
+        if(step > totalSteps){
             clearInterval(loaderInterval);
-            loader.style.display = 'none'; // Loader weg
-            output.textContent += "HTMShell bereit! Tippe $ help\n";
-            cmdInput.focus();
+            loader.style.display = 'none';
+            printLine("HTMShell bereit! Tippe $ help");
         }
     }, interval);
 }
 
-// Terminal Input Event
-cmdInput.addEventListener('keydown', (e) => {
-    if(e.key === 'Enter') {
-        const cmd = cmdInput.value.trim();
-        handleCommand(cmd);
-        cmdInput.value = '';
+// Terminal-Ausgabe zeilenweise
+function printLine(text){
+    output.textContent += text + '\n';
+    output.scrollTop = output.scrollHeight;
+}
+
+// Cursor blinkt
+setInterval(()=>{
+    cursor.style.visibility = cursor.style.visibility === 'hidden' ? 'visible' : 'hidden';
+}, 500);
+
+// Keypress Listener für "Terminal-Input"
+document.addEventListener('keydown', (e)=>{
+    if(e.key === "Backspace"){
+        currentCommand = currentCommand.slice(0, -1);
+    } else if(e.key === "Enter"){
+        runCommand(currentCommand);
+        currentCommand = '';
+    } else if(e.key.length === 1){
+        currentCommand += e.key;
     }
+    cmdText.textContent = currentCommand;
 });
 
-// Command Handler
-function handleCommand(cmd) {
+function runCommand(cmd){
     terminalHistory.push(cmd);
-    output.textContent += `$ ${cmd}\n`;
-
-    switch(cmd) {
+    printLine(`$ ${cmd}`);
+    switch(cmd){
         case 'help':
-            output.textContent += "Verfügbare Befehle: getnum, clear, stats, tiday, phosee, upd, upg, upd-&upg, revT\n";
+            printLine("Verfügbare Befehle: getnum, clear, stats, tiday, phosee, upd, upg, upd-&upg, revT");
             break;
         case 'clear':
             output.textContent = '';
             break;
         case 'tiday':
-            output.textContent += new Date().toLocaleString() + '\n';
+            printLine(new Date().toLocaleString());
             break;
         default:
-            output.textContent += "Befehl nicht erkannt. Tippe $ help\n";
+            printLine("Befehl nicht erkannt. Tippe $ help");
     }
-
-    // Scroll automatisch nach unten
-    output.scrollTop = output.scrollHeight;
 }
 
-// Starte Loader
+// Loader starten
 showLoader();
