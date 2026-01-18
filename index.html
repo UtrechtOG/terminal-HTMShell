@@ -6,17 +6,11 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Terminal Overlay -->
     <div id="terminal-overlay">
-        <!-- Ladebereich (70%) -->
         <div id="loader"></div>
-        <!-- Ausgabe / Terminal (30%) -->
         <div id="terminal">
             <div id="output"></div>
-            <div id="input-line">
-                <span id="prompt">$</span>
-                <input type="text" id="cmd-input" autofocus autocomplete="off">
-            </div>
+            <div id="input-line"><span id="prompt">$</span><span id="cmd-text"></span><span id="cursor">█</span></div>
         </div>
     </div>
     <script src="script.js"></script>
